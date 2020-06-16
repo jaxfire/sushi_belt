@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.*
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,44 +24,46 @@ class MainActivity : AppCompatActivity() {
         val windowWidth = displayMetrics.widthPixels.toFloat()
         val windowHeight = displayMetrics.heightPixels.toFloat()
 
+        val selectedProducts = mutableListOf<String>()
         val inflater = LayoutInflater.from(this)
-
         val sushiItems = mutableListOf<View>()
-        val productData = listOf("Product A", "Product B", "Product C", "Product D", "Product E", "Product F", "Product G", "Product H").forEach {
-            val inflatedLayout = inflater.inflate(R.layout.sushi_item, sushi_container, false)
-            inflatedLayout.productTextView.text = it
-            sushi_container.addView(inflatedLayout)
-            sushiItems.add(inflatedLayout)
-        }
-
+        val productData = listOf("Product A", "Product B", "Product C", "Product D", "Product E", "Product F", "Product G", "Product H", "Product I", "Product J")
+                .forEach { product ->
+                    val sushiItem = inflater.inflate(R.layout.sushi_item, sushi_container, false)
+                    sushiItem.productTextView.text = product
+                    sushiItem.setOnClickListener { view ->
+                        if (view.selectedOverlay.visibility == GONE) {
+                            view.selectedOverlay.visibility = VISIBLE
+                            view.selectedCheckMark.visibility = VISIBLE
+                            selectedProducts.add(product)
+                        } else {
+                            view.selectedOverlay.visibility = GONE
+                            view.selectedCheckMark.visibility = GONE
+                            selectedProducts.remove(product)
+                        }
+                    }
+                    sushi_container.addView(sushiItem)
+                    sushiItems.add(sushiItem)
+                }
         sushi_container.post {
-
             val imageWidthHalf = sushiItem.width / 2
             val imageHeightHalf = sushiItem.height / 2
-
             val linePath1StartX = windowWidth / 4 - imageWidthHalf
-            val linePath1EndY = windowHeight / 2
-
+            val linePath1EndY = windowHeight / 3
             val linePath2StartX = windowWidth / 4 * 3 - imageHeightHalf
-            val linePath2StartY = windowHeight / 2
-
-            val path = Path()
-
-            path.setLastPoint(linePath1StartX, windowHeight)
-            path.lineTo(linePath1StartX, linePath1EndY)
-
-            path.arcTo(linePath1StartX, linePath1EndY - 250, linePath2StartX, linePath2StartY + 250, 180f, 180f, true)
-            path.arcTo(500f, 500f, 500f, 500f, 180f, 0f, true)
-
-            path.setLastPoint(linePath2StartX, linePath2StartY)
-            path.lineTo(linePath2StartX, windowHeight)
-
+            val linePath2StartY = windowHeight / 3
+            val path = Path().apply {
+                setLastPoint(linePath1StartX, windowHeight)
+                lineTo(linePath1StartX, linePath1EndY)
+                arcTo(linePath1StartX, linePath1EndY - 250, linePath2StartX, linePath2StartY + 250, 180f, 180f, true)
+                lineTo(linePath2StartX, windowHeight)
+            }
             var animation: ObjectAnimator
-            val animFraction = 1.0f / sushiItems.size
+            val animStartFraction = 1.0f / sushiItems.size
             sushiItems.forEachIndexed { index, view ->
-                animation = ObjectAnimator.ofFloat(view, View.X, View.Y, path)
-                animation.duration = 5_000
-                animation.setCurrentFraction(animFraction * index)
+                animation = ObjectAnimator.ofFloat(view, X, Y, path)
+                animation.duration = 8_000
+                animation.setCurrentFraction(animStartFraction * index)
                 animation.interpolator = LinearInterpolator()
                 animation.repeatCount = ObjectAnimator.INFINITE
                 animation.start()
