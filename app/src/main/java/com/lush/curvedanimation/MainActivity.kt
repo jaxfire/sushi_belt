@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         val inflater = LayoutInflater.from(this)
 
         val sushiItems = mutableListOf<View>()
-        val productData = listOf("Intergalactic", "Melusine", "Peachy", "Twilight", "Big Blue", "Goddess", "Kitsune", "Outback mate").forEach {
+        val productData = listOf("Product A", "Product B", "Product C", "Product D", "Product E", "Product F", "Product G", "Product H").forEach {
             val inflatedLayout = inflater.inflate(R.layout.sushi_item, sushi_container, false)
             inflatedLayout.productTextView.text = it
             sushi_container.addView(inflatedLayout)
