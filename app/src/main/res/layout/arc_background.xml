@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:id="@+id/arc_top_segment"
+        android:layout_width="312dp"
+        android:layout_height="208dp"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:layout_width="312dp"
+            android:layout_height="208dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/shape_arc_grey" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/shape_arc_white" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="106dp"
+        android:layout_height="300dp"
+        android:background="@color/sushiBeltBackground"
+        android:layout_alignLeft="@id/arc_top_segment"
+        android:layout_below="@id/arc_top_segment" />
+
+    <View
+        android:layout_width="106dp"
+        android:layout_height="300dp"
+        android:background="@color/sushiBeltBackground"
+        android:layout_alignRight="@id/arc_top_segment"
+        android:layout_below="@id/arc_top_segment" />
+
+</RelativeLayout>
