@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val selectedProducts = mutableListOf<String>()
         val inflater = LayoutInflater.from(this)
         val sushiItems = mutableListOf<View>()
-        val productData = listOf("Product A", "Product B", "Product C", "Product D", "Product E", "Product F", "Product G", "Product H", "Product I", "Product J")
+        val productData = listOf("Product A", "Product B", "Product C", "Product D", "Product E", "Product F", "Product G", "Product H")
                 .forEach { product ->
                     val sushiItem = inflater.inflate(R.layout.sushi_item, sushi_container, false)
                     sushiItem.productTextView.text = product
@@ -49,9 +49,9 @@ class MainActivity : AppCompatActivity() {
         sushi_container.post {
             val imageWidthHalf = sushiItem.width / 2
             val imageHeightHalf = sushiItem.height / 2
-            val linePath1StartX = windowWidth / 4 - imageWidthHalf
+            val linePath1StartX = windowWidth / 4f - imageWidthHalf
             val linePath1EndY = windowHeight / 3
-            val linePath2StartX = windowWidth / 4 * 3 - imageHeightHalf
+            val linePath2StartX = windowWidth / 4f * 3f - imageHeightHalf
             val linePath2StartY = windowHeight / 3
             val path = Path().apply {
                 setLastPoint(linePath1StartX, windowHeight)
