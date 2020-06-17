@@ -7,12 +7,18 @@
     android:background="@android:color/white"
     tools:context=".MainActivity">
 
-    <include
-        android:id="@+id/arc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        layout="@layout/arc_background" />
+    <com.lush.curvedanimation.CustomView
+        android:id="@+id/customView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"/>
+
+<!--    <include-->
+<!--        android:id="@+id/arc"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        layout="@layout/arc_background" />-->
 
 </RelativeLayout>

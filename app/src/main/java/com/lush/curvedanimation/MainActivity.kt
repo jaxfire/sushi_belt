@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val windowWidth = displayMetrics.widthPixels.toFloat()
@@ -29,9 +28,15 @@ class MainActivity : AppCompatActivity() {
         val inflater = LayoutInflater.from(this)
         val sushiItems = mutableListOf<View>()
 
+        val itemDiameter = (windowWidth / 3.75).toInt()
+
         populateDevProductData().forEach { product ->
                 val sushiItem =
                     inflater.inflate(R.layout.sushi_item, sushi_container, false).apply {
+                        layoutParams.width = itemDiameter
+                        layoutParams.height = itemDiameter
+                        requestLayout();
+                        invalidate();
                         productTextView.text = product.name
                         productImageView.setImageResource(product.image)
                         setOnClickListener { view ->
@@ -71,6 +76,25 @@ class MainActivity : AppCompatActivity() {
                 )
                 lineTo(linePath2StartX, windowHeight)
             }
+
+            val path2 = Path().apply {
+                setLastPoint(linePath1StartX, windowHeight)
+                lineTo(linePath1StartX, linePath1EndY)
+                arcTo(
+                    linePath1StartX,
+                    linePath1EndY - 250,
+                    linePath2StartX,
+                    linePath2StartY + 250,
+                    180f,
+                    180f,
+                    true
+                )
+                lineTo(linePath2StartX, windowHeight)
+            }
+
+            customView.setPath(path2, windowWidth / 7.5f, windowHeight / 13f, itemDiameter)
+            customView.invalidate()
+
             var animation: ObjectAnimator
             val animStartFraction = 1.0f / sushiItems.size
             sushiItems.forEachIndexed { index, view ->
