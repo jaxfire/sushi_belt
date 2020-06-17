@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/sushiItem"
     android:layout_width="125dp"
     android:layout_height="125dp"
@@ -26,7 +27,10 @@
         android:layout_below="@id/productImageView"
         android:fontFamily="@font/lush_handwritten_bold"
         android:textStyle="bold"
-        android:textSize="16sp"
+        android:maxLines="2"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeMaxTextSize="100sp"
         android:textColor="@android:color/black"
         android:textAlignment="center" />
 
