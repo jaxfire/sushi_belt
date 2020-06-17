@@ -35,10 +35,16 @@ class MainActivity : AppCompatActivity() {
                     inflater.inflate(R.layout.sushi_item, sushi_container, false).apply {
                         layoutParams.width = itemDiameter
                         layoutParams.height = itemDiameter
-                        requestLayout();
-                        invalidate();
+                        requestLayout()
+                        invalidate()
                         productTextView.text = product.name
-                        productImageView.setImageResource(product.image)
+                        productImageView.apply {
+                            setImageResource(product.image)
+                            layoutParams.width = (itemDiameter * 0.6).toInt()
+                            layoutParams.height = (itemDiameter * 0.6).toInt()
+                            requestLayout()
+                            invalidate()
+                        }
                         setOnClickListener { view ->
                             if (view.selectedOverlay.visibility == GONE) {
                                 view.selectedOverlay.visibility = VISIBLE
