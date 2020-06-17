@@ -30,7 +30,7 @@ class CustomView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         if (path != null) {
             paint.strokeWidth = itemDiameter.toFloat()
             paint.pathEffect = null
-            paint.color = Color.LTGRAY
+            paint.color = resources.getColor(R.color.sushiBeltBackground)
             paint.style = Paint.Style.STROKE
             canvas!!.drawPath(path!!, paint)
         }
