@@ -25,27 +25,31 @@ class MainActivity : AppCompatActivity() {
         val windowWidth = displayMetrics.widthPixels.toFloat()
         val windowHeight = displayMetrics.heightPixels.toFloat()
 
-        val selectedProducts = mutableListOf<String>()
+        val selectedProducts = mutableListOf<ProductData>()
         val inflater = LayoutInflater.from(this)
         val sushiItems = mutableListOf<View>()
-        val productData = listOf("Product A", "Product B", "Product C", "Product D", "Product E", "Product F", "Product G", "Product H")
-                .forEach { product ->
-                    val sushiItem = inflater.inflate(R.layout.sushi_item, sushi_container, false)
-                    sushiItem.productTextView.text = product
-                    sushiItem.setOnClickListener { view ->
-                        if (view.selectedOverlay.visibility == GONE) {
-                            view.selectedOverlay.visibility = VISIBLE
-                            view.selectedCheckMark.visibility = VISIBLE
-                            selectedProducts.add(product)
-                        } else {
-                            view.selectedOverlay.visibility = GONE
-                            view.selectedCheckMark.visibility = GONE
-                            selectedProducts.remove(product)
+
+        populateDevProductData().forEach { product ->
+                val sushiItem =
+                    inflater.inflate(R.layout.sushi_item, sushi_container, false).apply {
+                        productTextView.text = product.name
+                        productImageView.setImageResource(product.image)
+                        setOnClickListener { view ->
+                            if (view.selectedOverlay.visibility == GONE) {
+                                view.selectedOverlay.visibility = VISIBLE
+                                view.selectedCheckMark.visibility = VISIBLE
+                                selectedProducts.add(product)
+                            } else {
+                                view.selectedOverlay.visibility = GONE
+                                view.selectedCheckMark.visibility = GONE
+                                selectedProducts.remove(product)
+                            }
                         }
                     }
-                    sushi_container.addView(sushiItem)
-                    sushiItems.add(sushiItem)
-                }
+
+                sushi_container.addView(sushiItem)
+                sushiItems.add(sushiItem)
+            }
         sushi_container.post {
             val imageWidthHalf = sushiItem.width / 2
             val imageHeightHalf = sushiItem.height / 2
@@ -56,14 +60,22 @@ class MainActivity : AppCompatActivity() {
             val path = Path().apply {
                 setLastPoint(linePath1StartX, windowHeight)
                 lineTo(linePath1StartX, linePath1EndY)
-                arcTo(linePath1StartX, linePath1EndY - 250, linePath2StartX, linePath2StartY + 250, 180f, 180f, true)
+                arcTo(
+                    linePath1StartX,
+                    linePath1EndY - 250,
+                    linePath2StartX,
+                    linePath2StartY + 250,
+                    180f,
+                    180f,
+                    true
+                )
                 lineTo(linePath2StartX, windowHeight)
             }
             var animation: ObjectAnimator
             val animStartFraction = 1.0f / sushiItems.size
             sushiItems.forEachIndexed { index, view ->
                 animation = ObjectAnimator.ofFloat(view, X, Y, path)
-                animation.duration = 8_000
+                animation.duration = 15_000
                 animation.setCurrentFraction(animStartFraction * index)
                 animation.interpolator = LinearInterpolator()
                 animation.repeatCount = ObjectAnimator.INFINITE
@@ -71,4 +83,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun populateDevProductData(): List<ProductData> = mutableListOf(
+        ProductData("Daddy-o", R.drawable.daddy_o),
+        ProductData("Intergalactic", R.drawable.intergalactic),
+        ProductData("Outback mate", R.drawable.outback_mate),
+        ProductData("R&B", R.drawable.r_n_b),
+        ProductData("Rehab", R.drawable.rehab),
+        ProductData("Rouge Henna", R.drawable.rouge_henna),
+        ProductData("The Comforter", R.drawable.the_comforter),
+        ProductData("Twilight", R.drawable.twilight_body_spray)
+    )
 }

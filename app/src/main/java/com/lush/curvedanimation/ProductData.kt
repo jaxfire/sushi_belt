@@ -1,3 +1,3 @@
 package com.lush.curvedanimation
 
-class ProductData
+data class ProductData(val name: String, val image: Int)
