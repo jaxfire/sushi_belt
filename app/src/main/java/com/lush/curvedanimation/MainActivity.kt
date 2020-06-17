@@ -98,7 +98,12 @@ class MainActivity : AppCompatActivity() {
                 lineTo(linePath2StartX, windowHeight)
             }
 
-            customView.setPath(path2, windowWidth / 7.5f, windowHeight / 13f, itemDiameter)
+            // Provides a modifier value that slightly tweaks the yOffset of the sushi
+            // belt's background image to make it look good on various aspect ratio screens.
+            // The value 0.1333 is the value that after manual trial and error looked the best
+            // on all various devices tested on.
+            val yOffsetModifier = windowHeight / windowWidth / 0.133f
+            customView.setPath(path2, windowWidth / 7.5f, windowHeight / yOffsetModifier, itemDiameter)
             customView.invalidate()
 
             var animation: ObjectAnimator
