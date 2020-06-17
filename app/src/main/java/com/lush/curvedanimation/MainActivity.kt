@@ -73,9 +73,9 @@ class MainActivity : AppCompatActivity() {
                 lineTo(linePath1StartX, linePath1EndY)
                 arcTo(
                     linePath1StartX,
-                    linePath1EndY - 250,
+                    linePath1EndY - itemDiameter,
                     linePath2StartX,
-                    linePath2StartY + 250,
+                    linePath2StartY + itemDiameter,
                     180f,
                     180f,
                     true
@@ -88,9 +88,9 @@ class MainActivity : AppCompatActivity() {
                 lineTo(linePath1StartX, linePath1EndY)
                 arcTo(
                     linePath1StartX,
-                    linePath1EndY - 250,
+                    linePath1EndY - itemDiameter,
                     linePath2StartX,
-                    linePath2StartY + 250,
+                    linePath2StartY + itemDiameter,
                     180f,
                     180f,
                     true
